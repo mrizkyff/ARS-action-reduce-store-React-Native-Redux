@@ -1,0 +1,17 @@
+{
+  "name": "ARS",
+  "displayName": "ARS",
+  "expo": {
+    "name": "ARS",
+    "slug": "ARS",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
