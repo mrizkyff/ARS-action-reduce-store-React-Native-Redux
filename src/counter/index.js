@@ -1,17 +1,17 @@
 import React, { useEffect, Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
-import { useState } from 'react';
 import { connect } from "react-redux";
+import {increment, decrement, reset} from '../redux/actions'
+
 const Tombol = (props) => {
     return (
         <View>
             <TouchableOpacity>
-                <Text style={{ fontSize: 25, backgroundColor: props.warna, padding: 10, marginRight: 5 , marginBottom:10}} onPress={props.onPress}>{props.judul}</Text>
+                <Text style={{ fontSize: 25, color: 'white',backgroundColor: props.warna, padding: 10, marginRight: 5 , marginBottom:10}} onPress={props.onPress}>{props.judul}</Text>
             </TouchableOpacity>
         </View>
     )
 }
-
 class Counter extends Component {
     render() {
         return (
@@ -25,8 +25,11 @@ class Counter extends Component {
                         <Tombol warna='red' judul='DECREMENT 1' onPress={this.props.decrement} />
                     </View>
                     <View style={{ flexDirection: 'row' }}>
-                        <Tombol warna='blue' judul='INCREMENT 5' onPress={this.props.increment5} />
-                        <Tombol warna='orange' judul='DECREMENT 5' onPress={this.props.decrement5} />
+                        <Tombol warna='blue' judul='INCREMENT 5' onPress={() => this.props.increment({payload: 11})} />
+                        <Tombol warna='orange' judul='DECREMENT 5' onPress={() => this.props.decrement({payload: 11})} />
+                    </View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Tombol warna='black' judul='RESET' onPress={this.props.reset} />
                     </View>
                 </View>
             </View>
@@ -34,18 +37,15 @@ class Counter extends Component {
     }
 }
 
-
 const mapStateToProps = state => ({
     count: state.count
 })
 
 const mapDispatchToProps = dispatch => ({
-    increment : () => dispatch({type: 'INCREMENT'}),
-    decrement : () => dispatch({type: 'DECREMENT'}),
-    increment5 : () => dispatch({type: 'INCREMENT', payload: 5}),
-    decrement5 : () => dispatch({type: 'DECREMENT', payload: 5})
+    increment : ({payload}) => dispatch(increment(payload)),
+    decrement : ({payload}) => dispatch(decrement(payload)),
+    reset : () => dispatch(reset()),
 })
-
 
 const styles = StyleSheet.create({
     container: {
